@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A client-only learning demo for account creation, login, and logout.">
+  <title>Authentication Demo | TECH 3498</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <div class="auth-shell">
+    <header class="auth-header">
+      <a class="auth-home-link" href="index.html">&larr; Back to the course website</a>
+      <span class="course-badge">&#128274; TECH 3498 Security Lab</span>
+      <h1>Authentication Demo</h1>
+      <p class="auth-intro">Practice creating an account, logging in, and logging out.</p>
+    </header>
+
+    <aside class="auth-warning" aria-label="Important demo limitation">
+      <strong>Learning demo only — no backend.</strong>
+      <p>This page keeps demo accounts in JavaScript memory in this tab only. Nothing is sent to a server or saved in browser storage. Reloading or closing the page clears every account and session. Never enter a real password here.</p>
+    </aside>
+
+    <section class="auth-session" id="auth-session" aria-live="polite" hidden>
+      <h2>You are logged in</h2>
+      <p>Signed in as <strong id="session-email"></strong>.</p>
+      <p>This demo confirms identity only. It does not provide access to protected server data or prove authorization.</p>
+      <button class="demo-action" id="logout-button" type="button">Log out</button>
+    </section>
+
+    <div class="auth-forms" id="auth-forms">
+      <section class="auth-card" aria-labelledby="create-title">
+        <h2 id="create-title">1. Create an account</h2>
+        <p>Choose a made-up email and demo password. Account details exist only until this page is reloaded or closed.</p>
+        <form id="create-form">
+          <label for="create-email">Email address</label>
+          <input id="create-email" name="email" type="email" autocomplete="username" required>
+
+          <label for="create-password">Demo password</label>
+          <input id="create-password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="password-guidance">
+          <small id="password-guidance">Use at least 8 characters, and do not use a real password.</small>
+
+          <label for="confirm-password">Confirm demo password</label>
+          <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+
+          <button class="demo-action" type="submit">Create demo account</button>
+          <p class="auth-status" id="create-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="auth-card" aria-labelledby="login-title">
+        <h2 id="login-title">2. Log in</h2>
+        <p>Use the same demo email and password you just registered, while this page remains open.</p>
+        <form id="login-form">
+          <label for="login-email">Email address</label>
+          <input id="login-email" name="email" type="email" autocomplete="username" required>
+
+          <label for="login-password">Demo password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+
+          <button class="demo-action" type="submit">Log in</button>
+          <p class="auth-status" id="login-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+
+    <section class="auth-lesson">
+      <h2>What this demonstrates</h2>
+      <ol>
+        <li><strong>Create account:</strong> register a temporary demo identity.</li>
+        <li><strong>Log in:</strong> provide its credentials to simulate authentication.</li>
+        <li><strong>Log out:</strong> end the temporary signed-in state.</li>
+      </ol>
+      <p>Real authentication requires a trusted backend to securely store password hashes, verify credentials, manage sessions, and enforce authorization. A client-only page cannot securely authenticate users or protect private resources.</p>
+    </section>
+
+    <footer class="auth-footer">
+      <a href="index.html">Return to Nicole's TECH 3498 website</a>
+    </footer>
+  </div>
+  <script src="auth.js"></script>
+</body>
+</html>

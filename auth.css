@@ -1,0 +1,75 @@
+.auth-shell {
+  width: min(100% - 2rem, 960px);
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+.auth-header, .auth-warning, .auth-card, .auth-session, .auth-lesson {
+  border: 1px solid var(--color-border-glow);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+.auth-header {
+  display: grid;
+  justify-items: start;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+  padding: 2rem;
+}
+.auth-header h1 { color: #fff; font-size: clamp(1.8rem, 5vw, 2.5rem); line-height: 1.2; }
+.auth-intro { margin: 0; }
+.auth-home-link, .auth-footer a {
+  color: var(--color-primary-light);
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+.auth-warning {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 5px solid #fbbf24;
+}
+.auth-warning strong { color: #fde68a; }
+.auth-warning p { margin: .4rem 0 0; }
+.auth-forms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.auth-forms[hidden], .auth-session[hidden] { display: none; }
+.auth-card, .auth-session, .auth-lesson { padding: 1.5rem; }
+.auth-card h2, .auth-session h2, .auth-lesson h2 {
+  margin-bottom: .6rem;
+  color: #fff;
+  font-size: 1.25rem;
+}
+.auth-card > p, .auth-session p, .auth-lesson p { font-size: .95rem; }
+.auth-card form { display: grid; gap: .6rem; }
+.auth-card label { margin-top: .35rem; color: #fff; font-size: .92rem; font-weight: 700; }
+.auth-card input {
+  width: 100%;
+  min-height: 44px;
+  padding: .6rem .75rem;
+  border: 1px solid var(--color-primary-light);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text-main);
+  font: inherit;
+}
+.auth-card input:focus-visible, .auth-shell a:focus-visible, .auth-shell button:focus-visible {
+  outline: 3px solid var(--color-primary-light);
+  outline-offset: 3px;
+}
+.auth-card small { color: var(--color-text-muted); line-height: 1.5; }
+.auth-status { min-height: 1.5em; margin: .25rem 0 0; font-size: .9rem; overflow-wrap: anywhere; }
+.auth-session { margin-bottom: 1.25rem; }
+.auth-lesson { margin-top: 1.25rem; }
+.auth-lesson ol { padding-left: 1.35rem; color: var(--color-text-secondary); }
+.auth-lesson li { margin-bottom: .4rem; }
+.auth-lesson p { margin-top: .8rem; }
+.auth-footer { padding: 1.5rem 0; text-align: center; }
+.auth-demo-link { display: inline-flex; text-decoration: none; }
+@media (max-width: 700px) {
+  .auth-shell { width: min(100% - 1.25rem, 960px); padding-top: 1rem; }
+  .auth-header { padding: 1.5rem; }
+  .auth-forms { grid-template-columns: 1fr; }
+}
