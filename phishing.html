@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Research project exploring phishing and spam email detection, machine learning, and cybersecurity trade-offs.">
+  <title>Phishing Email Detection | TECH 3498 Research Project</title>
+  <link rel="stylesheet" href="phishing.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Phishing Email Detection project home">
+        <span class="brand-mark" aria-hidden="true">&#128737;</span>
+        <span>SECURITY RESEARCH<small>TECH 3498 · Fall 2026</small></span>
+      </a>
+      <nav aria-label="Project navigation">
+        <p class="nav-label">RESEARCH GUIDE</p>
+        <a class="nav-link active" href="#overview"><span aria-hidden="true">01</span> Project overview</a>
+        <a class="nav-link" href="#threat"><span aria-hidden="true">02</span> The security problem</a>
+        <a class="nav-link" href="#research"><span aria-hidden="true">03</span> Research approach</a>
+        <a class="nav-link" href="#dataset"><span aria-hidden="true">04</span> Dataset &amp; scope</a>
+        <a class="nav-link" href="#visualizations"><span aria-hidden="true">05</span> Visualizations</a>
+        <a class="nav-link" href="#models"><span aria-hidden="true">06</span> Models &amp; evaluation</a>
+        <a class="nav-link" href="#implications"><span aria-hidden="true">07</span> Findings to consider</a>
+        <a class="nav-link" href="#references"><span aria-hidden="true">08</span> References</a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="status-dot" aria-hidden="true"></span>
+        <div><strong>Research status</strong><small>Project scope &amp; methods</small></div>
+      </div>
+      <a class="back-link" href="index.html">&larr; Back to course website</a>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <span>TECH 3498 <span class="separator">/</span> CYBERSECURITY RESEARCH</span>
+        <span class="student-name">Nicole Eyzaguirre</span>
+      </header>
+
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">RESEARCH PROJECT <span aria-hidden="true">·</span> MACHINE LEARNING &amp; EMAIL SECURITY</p>
+          <h1>Phishing Email<br><span>Detection</span></h1>
+          <p class="hero-description">A research project about how machine learning can help identify suspicious email—and why data quality, careful evaluation, and human judgment still matter.</p>
+          <a class="button-link" href="#threat">Read the research overview <span aria-hidden="true">&darr;</span></a>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="shield">&#128737;</div>
+          <span class="orbit-node node-one"></span>
+          <span class="orbit-node node-two"></span>
+          <span class="orbit-node node-three"></span>
+        </div>
+      </section>
+
+      <section class="research-card" aria-labelledby="research-question">
+        <div class="research-icon" aria-hidden="true">&#128270;</div>
+        <div>
+          <p class="eyebrow">CENTRAL RESEARCH QUESTION</p>
+          <h2 id="research-question">How accurately can machine learning models identify spam and phishing emails, and which model performs better at distinguishing suspicious emails from legitimate messages?</h2>
+        </div>
+      </section>
+
+      <section class="section-block" id="threat">
+        <div class="section-heading">
+          <div><p class="eyebrow">01 / SECURITY PROBLEM</p><h2>Why suspicious email matters</h2></div>
+        </div>
+        <p class="section-intro">Phishing is a form of social engineering: an attacker impersonates a trusted person or organization to influence someone to take an unsafe action.</p>
+        <div class="threat-layout">
+          <article class="feature-card">
+            <span class="card-kicker">THE ATTACK PATTERN</span>
+            <h3>From believable message to security incident</h3>
+            <div class="attack-flow" aria-label="Common phishing attack sequence">
+              <div class="flow-step"><span>01</span><strong>Impersonate</strong><small>Pose as a trusted sender</small></div>
+              <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+              <div class="flow-step"><span>02</span><strong>Create urgency</strong><small>Prompt a rushed response</small></div>
+              <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+              <div class="flow-step"><span>03</span><strong>Request action</strong><small>Click, open, pay, or sign in</small></div>
+              <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+              <div class="flow-step"><span>04</span><strong>Cause harm</strong><small>Expose accounts or data</small></div>
+            </div>
+            <p class="card-copy">A successful attack can lead to stolen passwords or financial details, account takeover, malware infection, or exposure of personal and organizational information.</p>
+          </article>
+          <aside class="fact-card">
+            <div class="fact-icon" aria-hidden="true">&#9888;</div>
+            <h3>Spam is not always phishing</h3>
+            <p>Spam describes unwanted or unsolicited messages. Phishing specifically attempts to deceive people into disclosing information or taking an unsafe action. A spam label alone does not prove a message is phishing.</p>
+            <p class="fact-emphasis">This distinction is essential when interpreting the dataset and describing the research conclusions.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-block" id="research">
+        <div class="section-heading">
+          <div><p class="eyebrow">02 / RESEARCH APPROACH</p><h2>Study the question, not just the score</h2></div>
+        </div>
+        <p class="section-intro">The project compares two supervised-learning approaches as a way to investigate the research question. The purpose is to understand their behavior and trade-offs, not to assume that a model can reliably determine whether any email is safe.</p>
+        <div class="research-grid">
+          <article><span class="research-number">A</span><h3>Understand the data</h3><p>Examine the dataset source, fields, label meanings, data quality, missing values, duplicate records, and class balance before drawing conclusions.</p></article>
+          <article><span class="research-number">B</span><h3>Compare approaches</h3><p>Consider Logistic Regression and Random Forest as two different classification methods for text represented with TF-IDF features.</p></article>
+          <article><span class="research-number">C</span><h3>Interpret consequences</h3><p>Look beyond overall accuracy. Discuss missed suspicious messages, legitimate messages incorrectly flagged, and what these errors could mean in practice.</p></article>
+        </div>
+        <div class="concept-panel">
+          <div class="concept-title"><span class="concept-mark" aria-hidden="true">&#10140;</span><div><p class="eyebrow">CONCEPTUAL RESEARCH FRAMEWORK</p><h3>What a text-classification study examines</h3></div></div>
+          <div class="concept-flow">
+            <div><strong>Email text</strong><small>Dataset records</small></div><span aria-hidden="true">&rarr;</span>
+            <div><strong>TF-IDF</strong><small>Text to numeric features</small></div><span aria-hidden="true">&rarr;</span>
+            <div><strong>Classifier</strong><small>Logistic Regression or Random Forest</small></div><span aria-hidden="true">&rarr;</span>
+            <div><strong>Evaluation</strong><small>Metrics, errors, limitations</small></div>
+          </div>
+          <p class="concept-note">This diagram describes the planned analytical approach. It does not represent completed training or measured model results.</p>
+        </div>
+      </section>
+
+      <section class="section-block" id="dataset">
+        <div class="section-heading">
+          <div><p class="eyebrow">03 / DATASET &amp; SCOPE</p><h2>Use evidence carefully</h2></div>
+        </div>
+        <div class="dataset-panel">
+          <div class="panel-icon" aria-hidden="true">&#128196;</div>
+          <div>
+            <h3>Kaggle: Phishing Email Dataset</h3>
+            <p>The project plans to use the Kaggle dataset referenced below. The dataset is described by its source as containing approximately 82,486 labeled email records, but the actual files, record count, columns, and label definitions have not yet been checked here.</p>
+            <a class="text-link" href="https://www.kaggle.com/code/zafko8/phishing-email-and-spam-sms-ai-detection-tool/input" target="_blank" rel="noopener noreferrer">View the Kaggle dataset reference <span aria-hidden="true">&nearr;</span></a>
+          </div>
+          <span class="dataset-status">SOURCE PROVIDED</span>
+        </div>
+        <div class="scope-grid">
+          <article>
+            <span class="scope-label">WHAT THIS RESEARCH CAN EXPLORE</span>
+            <p>Whether the selected dataset's labels can be predicted from its email-text features, how two model approaches compare under a consistent evaluation, and what kinds of mistakes may matter for cybersecurity.</p>
+          </article>
+          <article>
+            <span class="scope-label">WHAT MUST BE VERIFIED FIRST</span>
+            <p>Dataset files and actual row count; column names and data types; which column contains email text; what each target label means; missing or duplicate records; and whether records are emails, SMS messages, or both.</p>
+          </article>
+        </div>
+        <p class="caution"><strong>Interpretation guardrail:</strong> Until the records and labels are inspected, the project must not claim a verified number of emails, a class distribution, or that the target specifically represents confirmed phishing.</p>
+      </section>
+
+      <section class="section-block" id="visualizations">
+        <div class="section-heading">
+          <div><p class="eyebrow">04 / RESEARCH VISUALIZATIONS</p><h2>How to read the evidence</h2></div>
+          <span class="concept-badge">SOURCE FIGURE + CONCEPTUAL DIAGRAMS</span>
+        </div>
+        <p class="section-intro">These visuals provide context for the research. Only the dataset-size estimate is a figure reported by the dataset source; the classification diagrams explain evaluation concepts and do not contain experiment results.</p>
+
+        <div class="visual-grid">
+          <article class="visual-card">
+            <div class="visual-card-heading">
+              <div><p class="eyebrow">DATASET SOURCE DESCRIPTION</p><h3>Reported dataset scale</h3></div>
+              <span class="source-tag">APPROXIMATE</span>
+            </div>
+            <svg class="research-graphic record-graphic" viewBox="0 0 600 190" role="img" aria-labelledby="record-title record-desc">
+              <title id="record-title">Approximate dataset size reported by the Kaggle source</title>
+              <desc id="record-desc">A horizontal scale from zero to 100,000 records. A bar ends at approximately 82,486, based on the project description. This count has not been verified against the downloaded CSV.</desc>
+              <line class="chart-gridline" x1="40" y1="126" x2="560" y2="126"></line>
+              <rect class="reported-bar" x="40" y="76" width="428.9" height="34" rx="7"></rect>
+              <circle class="reported-dot" cx="468.9" cy="93" r="7"></circle>
+              <text class="chart-highlight" x="40" y="54">≈ 82,486 records</text>
+              <text class="chart-tick" x="40" y="151">0</text>
+              <text class="chart-tick" x="170" y="151" text-anchor="middle">25,000</text>
+              <text class="chart-tick" x="300" y="151" text-anchor="middle">50,000</text>
+              <text class="chart-tick" x="430" y="151" text-anchor="middle">75,000</text>
+              <text class="chart-tick" x="560" y="151" text-anchor="end">100,000</text>
+              <text class="chart-caption" x="40" y="177">Source-reported estimate; actual file record count is not yet verified.</text>
+            </svg>
+            <p class="visual-explanation">The project brief describes the dataset as containing approximately 82,486 labeled records. This visual shows that reported scale only; it is not a verified count or a class breakdown.</p>
+          </article>
+
+          <article class="visual-card">
+            <div class="visual-card-heading">
+              <div><p class="eyebrow">EVALUATION FRAMEWORK</p><h3>Confusion matrix</h3></div>
+              <span class="source-tag conceptual-tag">CONCEPTUAL</span>
+            </div>
+            <div class="matrix-wrap">
+              <span class="matrix-y-label">ACTUAL LABEL</span>
+              <div class="matrix-content">
+                <div class="matrix-x-labels"><span></span><span>Predicted legitimate</span><span>Predicted suspicious</span></div>
+                <div class="matrix-row"><span class="matrix-row-label">Legitimate</span><div class="matrix-cell correct"><strong>True negative</strong><small>Legitimate correctly allowed</small></div><div class="matrix-cell false-alarm"><strong>False positive</strong><small>Legitimate incorrectly flagged</small></div></div>
+                <div class="matrix-row"><span class="matrix-row-label">Suspicious</span><div class="matrix-cell missed"><strong>False negative</strong><small>Suspicious message missed</small></div><div class="matrix-cell correct"><strong>True positive</strong><small>Suspicious correctly flagged</small></div></div>
+              </div>
+            </div>
+            <p class="visual-explanation">The four cells describe possible outcomes, not measured counts. A real confusion matrix will need verified labels and predictions from the same held-out test set.</p>
+          </article>
+
+          <article class="visual-card tradeoff-card">
+            <div class="visual-card-heading">
+              <div><p class="eyebrow">SECURITY TRADE-OFF</p><h3>Two kinds of mistakes, two different costs</h3></div>
+              <span class="source-tag conceptual-tag">CONCEPTUAL</span>
+            </div>
+            <div class="tradeoff-visual" role="img" aria-label="Conceptual balance: lowering missed suspicious messages may increase legitimate messages flagged, so deployment requires selecting an appropriate operating point. No measured rates are shown.">
+              <div class="trade-endpoint catch">
+                <span class="trade-icon" aria-hidden="true">&#128737;</span>
+                <strong>Catch more suspicious mail</strong>
+                <small>Focus on reducing false negatives</small>
+              </div>
+              <div class="trade-center">
+                <span>OPERATING<br>THRESHOLD</span>
+                <div class="trade-track"><i></i></div>
+                <small>Requires evidence &amp; risk decisions</small>
+              </div>
+              <div class="trade-endpoint friction">
+                <span class="trade-icon" aria-hidden="true">&#128232;</span>
+                <strong>Avoid blocking legitimate mail</strong>
+                <small>Focus on reducing false positives</small>
+              </div>
+            </div>
+            <p class="visual-explanation">These goals can conflict. The preferred balance depends on how an organization weighs missed threats against disrupted legitimate communication; the right operating point must be measured and reviewed.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block" id="models">
+        <div class="section-heading">
+          <div><p class="eyebrow">05 / METHODS &amp; EVALUATION</p><h2>Two models, explained simply</h2></div>
+        </div>
+        <div class="model-grid">
+          <article class="model-card">
+            <div class="model-icon">&#931;</div>
+            <p class="eyebrow">LINEAR CLASSIFICATION</p>
+            <h3>Logistic Regression</h3>
+            <p>A supervised classification method that estimates how strongly input features support each class. With text represented by TF-IDF, learned weights can help indicate which terms are associated with each dataset label.</p>
+            <p class="model-question"><strong>Research consideration:</strong> Does a comparatively simple, interpretable text baseline distinguish the dataset's classes effectively?</p>
+          </article>
+          <article class="model-card">
+            <div class="model-icon forest">&#127794;</div>
+            <p class="eyebrow">TREE ENSEMBLE</p>
+            <h3>Random Forest</h3>
+            <p>An ensemble method that combines decision trees. It can represent non-linear feature interactions, but that flexibility does not guarantee better results on sparse text features.</p>
+            <p class="model-question"><strong>Research consideration:</strong> Does combining trees improve the balance of detection and false alarms on the same evaluation data?</p>
+          </article>
+        </div>
+        <h3 class="subsection-title">How results should be evaluated</h3>
+        <div class="metric-grid">
+          <article><span class="metric-symbol">%</span><h4>Accuracy</h4><p>Share of all evaluated messages classified correctly. Can be misleading when classes are imbalanced.</p></article>
+          <article><span class="metric-symbol">P</span><h4>Precision</h4><p>Of messages flagged as suspicious, how many actually have the suspicious dataset label?</p></article>
+          <article><span class="metric-symbol">R</span><h4>Recall</h4><p>Of messages with the suspicious dataset label, how many does the model identify?</p></article>
+          <article><span class="metric-symbol">F1</span><h4>F1-score</h4><p>A combined measure of precision and recall, useful when both types of performance matter.</p></article>
+        </div>
+        <div class="method-note"><strong>Fair comparison:</strong> A rigorous comparison uses the same held-out test data for both models. If labels allow it, stratified splitting can preserve class proportions. Fit TF-IDF only on training data to avoid test-data leakage; use <code>random_state=42</code> for reproducibility.</div>
+      </section>
+
+      <section class="section-block" id="implications">
+        <div class="section-heading">
+          <div><p class="eyebrow">06 / SECURITY IMPLICATIONS</p><h2>When a classifier gets it wrong</h2></div>
+        </div>
+        <div class="error-grid">
+          <article class="error-card false-negative">
+            <span class="error-label">FALSE NEGATIVE</span>
+            <h3>A suspicious message is missed</h3>
+            <p>If a harmful message is classified as legitimate, a person may trust it, follow its instructions, and expose credentials or sensitive information.</p>
+            <span class="impact">Potential cost: threat passes through</span>
+          </article>
+          <article class="error-card false-positive">
+            <span class="error-label">FALSE POSITIVE</span>
+            <h3>A legitimate message is flagged</h3>
+            <p>If a genuine message is classified as suspicious, important communication may be delayed, hidden, or ignored. Frequent false alarms can also reduce trust in warnings.</p>
+            <span class="impact">Potential cost: valid message disrupted</span>
+          </article>
+        </div>
+        <div class="organization-panel">
+          <div class="organization-icon" aria-hidden="true">&#127970;</div>
+          <div><h3>How an organization might use this research</h3><p>A validated classifier could be one signal in a layered email-defense program—for example, helping prioritize messages for review. It should be monitored, combined with other controls, and allow users or analysts to report errors. It should not be the sole authority deciding whether an email is safe.</p></div>
+        </div>
+        <div class="limits-grid">
+          <article><h3>Labels define the task</h3><p>A model learns the dataset's labels, not the full real-world meaning of phishing. If labels mean spam, results should be described as spam classification.</p></article>
+          <article><h3>Threats change</h3><p>Attackers change wording and techniques. A model trained on older or narrow examples may perform differently on new messages.</p></article>
+          <article><h3>Data may be unrepresentative</h3><p>Public datasets may not reflect an organization's language, users, email systems, or current threat environment.</p></article>
+          <article><h3>Text is only one signal</h3><p>Sender identity, URLs, attachments, context, and user behavior can also matter; text-only analysis cannot see every signal.</p></article>
+        </div>
+        <p class="disclaimer">Educational research project. A model prediction is not a guarantee that an email is safe or malicious.</p>
+      </section>
+
+      <section class="section-block" id="references">
+        <div class="section-heading">
+          <div><p class="eyebrow">07 / SOURCES</p><h2>References &amp; further reading</h2></div>
+        </div>
+        <ol class="references-list">
+          <li><span class="reference-type">DATASET</span><div><strong>Kaggle dataset reference supplied for this project.</strong><p>Dataset details and labels should be verified against the downloaded files before analysis.</p><a href="https://www.kaggle.com/code/zafko8/phishing-email-and-spam-sms-ai-detection-tool/input" target="_blank" rel="noopener noreferrer">kaggle.com/code/zafko8/phishing-email-and-spam-sms-ai-detection-tool/input</a></div></li>
+          <li><span class="reference-type">SECURITY GUIDANCE</span><div><strong>Cybersecurity and Infrastructure Security Agency (CISA). Secure Our World: Recognize and Report Phishing.</strong><p>Practical guidance on recognizing and reporting phishing attempts.</p><a href="https://www.cisa.gov/secure-our-world/recognize-and-report-phishing" target="_blank" rel="noopener noreferrer">cisa.gov/secure-our-world/recognize-and-report-phishing</a></div></li>
+          <li><span class="reference-type">METHODS</span><div><strong>scikit-learn developers. Feature extraction: text feature extraction.</strong><p>Reference documentation for TF-IDF vectorization and text features.</p><a href="https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction" target="_blank" rel="noopener noreferrer">scikit-learn.org · text feature extraction</a></div></li>
+          <li><span class="reference-type">METHODS</span><div><strong>scikit-learn developers. Model evaluation: classification metrics.</strong><p>Definitions and guidance for evaluating classification models.</p><a href="https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics" target="_blank" rel="noopener noreferrer">scikit-learn.org · classification metrics</a></div></li>
+          <li><span class="reference-type">ACADEMIC</span><div><strong>Breiman, L. (2001). Random Forests. <em>Machine Learning, 45</em>, 5–32.</strong><p>Foundational paper introducing the Random Forest classifier.</p><a href="https://doi.org/10.1023/A:1010933404324" target="_blank" rel="noopener noreferrer">doi.org/10.1023/A:1010933404324</a></div></li>
+          <li><span class="reference-type">ACADEMIC</span><div><strong>Salton, G., &amp; Buckley, C. (1988). Term-weighting approaches in automatic text retrieval. <em>Information Processing &amp; Management, 24</em>(5), 513–523.</strong><p>Classic research on term weighting, a foundation for representing text using weighted terms.</p><a href="https://doi.org/10.1016/0306-4573(88)90021-0" target="_blank" rel="noopener noreferrer">doi.org/10.1016/0306-4573(88)90021-0</a></div></li>
+        </ol>
+      </section>
+
+      <footer class="page-footer">
+        <span>Phishing Email Detection Using Machine Learning · Research project</span>
+        <a href="index.html">Course website</a>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
