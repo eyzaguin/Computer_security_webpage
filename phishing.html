@@ -213,6 +213,7 @@
         </div>
       </section>
 
+    
       <section class="section-block" id="models">
         <div class="section-heading">
           <div><p class="eyebrow">05 / METHODS &amp; EVALUATION</p><h2>Two models, explained simply</h2></div>
@@ -236,11 +237,32 @@
         <h3 class="subsection-title">How results should be evaluated</h3>
         <div class="metric-grid">
           <article><span class="metric-symbol">%</span><h4>Accuracy</h4><p>Share of all evaluated messages classified correctly. Can be misleading when classes are imbalanced.</p></article>
-          <article><span class="metric-symbol">P</span><h4>Precision</h4><p>Of messages flagged as suspicious, how many actually have the suspicious dataset label?</p></article>
-          <article><span class="metric-symbol">R</span><h4>Recall</h4><p>Of messages with the suspicious dataset label, how many does the model identify?</p></article>
+          <article><span class="metric-symbol">P</span><h4>Precision</h4><p>Of messages predicted as label 1, how many truly have label 1 in the held-out data?</p></article>
+          <article><span class="metric-symbol">R</span><h4>Recall</h4><p>Of messages whose true label is 1, how many does the model predict as label 1?</p></article>
           <article><span class="metric-symbol">F1</span><h4>F1-score</h4><p>A combined measure of precision and recall, useful when both types of performance matter.</p></article>
         </div>
+        <div class="evaluation-panel">
+         
+        </div>
+     
+          <div class="table-scroll">
+            <table class="evaluation-table demo-table">
+              <thead>
+                <tr><th>Models</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>False-positive rate</th><th>False-negative rate</th><th>Training time</th><th>Confusion matrix</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Example Logistic Regression</th><td>93.0%</td><td>93.0%</td><td>94.6%</td><td>93.8%</td><td>9.1%</td><td>5.4%</td><td>0.42 s*</td><td>TN 400 · FP 40<br>FN 30 · TP 530</td></tr>
+                <tr><th scope="row">Example Random Forest</th><td>92.0%</td><td>94.4%</td><td>91.1%</td><td>92.7%</td><td>6.8%</td><td>8.9%</td><td>8.70 s*</td><td>TN 410 · FP 30<br>FN 50 · TP 510</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="demo-interpretation"><strong>Metric lesson</strong> the example Random Forest has fewer false positives, while the example Logistic Regression catches more hypothetical positives. Which trade-off is preferable depends on the real task and verified labels. <strong>Training Models</strong></p>
+        </aside>
         <div class="method-note"><strong>Fair comparison:</strong> A rigorous comparison uses the same held-out test data for both models. If labels allow it, stratified splitting can preserve class proportions. Fit TF-IDF only on training data to avoid test-data leakage; use <code>random_state=42</code> for reproducibility.</div>
+        <div class="model-pending" id="model-evaluation-status" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div><strong>Model evaluation</strong><p>Logistic Regression and Random Forest results are available</p></div>
+        </div>
       </section>
 
       <section class="section-block" id="implications">
