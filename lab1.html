@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lab 1 report on Windows network configuration, connectivity testing, traceroute, and ARP observations.">
+  <title>Lab 1 – Computer Security | TECH 3498</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lab1.css">
+</head>
+<body>
+  <main class="lab-report">
+    <header class="lab-header">
+      <a class="lab-home-link" href="index.html">&larr; Back to course website</a>
+      <section class="banner-card" aria-labelledby="lab-title">
+        <div class="banner-header">
+          <span class="course-badge">TECH 3498 · IT Computer Security</span>
+          <h1 id="lab-title">Lab 1 – Computer Security Class</h1>
+          <p class="course-subtitle">Windows networking configuration, connectivity testing, traceroute, and ARP observations</p>
+          <div class="meta-strip">
+            <span class="meta-chip"><strong>Student:</strong> Nicole Eyzaguirre</span>
+            <span class="meta-chip"><strong>Platform:</strong> Windows 10</span>
+            <span class="meta-chip"><strong>Lab:</strong> 1</span>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <nav class="lab-toc" aria-label="Lab report sections">
+      <strong>In this report</strong>
+      <a href="#ip-configuration">1.1 Windows IP configuration</a>
+      <a href="#ping-tracert">1.2 Ping and tracert</a>
+      <a href="#arp">ARP observations</a>
+      <a href="#issues">Problems and resolution</a>
+      <a href="#conclusion">Conclusion</a>
+    </nav>
+
+    <section class="lab-section" id="ip-configuration" aria-labelledby="ip-title">
+      <div class="lab-section-heading">
+        <span class="lab-section-number">01</span>
+        <div>
+          <p class="lab-eyebrow">LAB 1.1</p>
+          <h2 id="ip-title">Windows Client IP Configuration (ipconfig)</h2>
+        </div>
+      </div>
+
+      <article class="lab-card">
+        <h3>1. System information and location</h3>
+        <dl class="lab-facts">
+          <div><dt>Operating system</dt><dd>Windows 10, version 10.0.19045.6456</dd></div>
+          <div><dt>Computer hostname</dt><dd>LAPTOP-6PB0QLAO</dd></div>
+          <div><dt>Network DNS suffix</dt><dd>kean.edu</dd></div>
+        </dl>
+        <h3>2. Open Command Prompt</h3>
+        <p>Opened Windows Command Prompt to perform the lab commands.</p>
+      </article>
+
+      <article class="lab-card">
+        <h3>3. <code>ipconfig /?</code></h3>
+        <p>Executed <code>ipconfig /?</code> and viewed the available options.</p>
+        <div class="lab-answer">
+          <h4>Which options are most useful for an administrator?</h4>
+          <p><code>ipconfig /all</code>, <code>/release</code>, <code>/renew</code>, and <code>/flushdns</code> help inspect network settings, troubleshoot DHCP leases, and clear the DNS resolver cache.</p>
+        </div>
+        <div class="lab-answer">
+          <h4>Which option obtains an IP configuration from a DHCP server?</h4>
+          <p><code>ipconfig /renew</code>.</p>
+        </div>
+        <figure class="lab-figure">
+          <img src="lab1-images/01-ipconfig-help.png" alt="Windows Command Prompt showing the ipconfig help options and examples" loading="lazy">
+          <figcaption>Figure 1. <code>ipconfig /?</code> command output.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>4. <code>ipconfig</code></h3>
+        <p>The active adapter is Wireless LAN adapter Wi-Fi.</p>
+        <dl class="lab-facts">
+          <div><dt>IPv4 address</dt><dd>10.136.12.50</dd></div>
+          <div><dt>Subnet mask</dt><dd>255.255.252.0</dd></div>
+          <div><dt>Default gateway</dt><dd>10.136.15.254</dd></div>
+        </dl>
+        <div class="lab-answer">
+          <h4>What is the purpose of an IP address mask?</h4>
+          <p>The subnet mask distinguishes the network portion of an IP address from the host portion.</p>
+        </div>
+        <figure class="lab-figure">
+          <img src="lab1-images/02-ipconfig.png" alt="Windows Command Prompt showing Wi-Fi IPv4 address, subnet mask, and default gateway" loading="lazy">
+          <figcaption>Figure 2. <code>ipconfig</code> output.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>5. <code>ipconfig /all</code></h3>
+        <p>Hostname: LAPTOP-6PB0QLAO. DNS suffix search list: kean.edu. The visible physical address <code>88-D8-2E-04-5A-3E</code> belongs to a disconnected Microsoft Wi-Fi Direct Virtual Adapter, not necessarily the active Wi-Fi interface.</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/03-ipconfig-all.png" alt="Partial ipconfig all output showing hostname, DNS suffix, and disconnected Wi-Fi Direct adapter" loading="lazy">
+          <figcaption>Figure 3. Partial <code>ipconfig /all</code> output.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>6–8. Local Area Connection Properties and IP address change</h3>
+        <p>Opened Internet Protocol Version 4 (TCP/IPv4) Properties. The window shows “Obtain an IP address automatically” and “Obtain DNS server address automatically.” The address obtained through DHCP was <code>10.136.12.50</code> in Step 4; no manually entered address appears in the properties window.</p>
+        <figure class="lab-figure lab-figure-narrow">
+          <img src="lab1-images/04-ipv4-properties.png" alt="IPv4 properties dialog with automatic IP address and DNS server selection" loading="lazy">
+          <figcaption>Figure 4. TCP/IPv4 properties.</figcaption>
+        </figure>
+        <p class="lab-result"><strong>Change IP address:</strong> Successful.</p>
+      </article>
+    </section>
+
+    <section class="lab-section" id="ping-tracert" aria-labelledby="ping-title">
+      <div class="lab-section-heading">
+        <span class="lab-section-number">02</span>
+        <div>
+          <p class="lab-eyebrow">LAB 1.2 · LAB A</p>
+          <h2 id="ping-title">Ping and tracert</h2>
+        </div>
+      </div>
+
+      <article class="lab-card">
+        <h3>1. <code>ping /?</code></h3>
+        <p>Executed <code>ping /?</code> to view the available options.</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/05-ping-help.png" alt="Windows Command Prompt displaying ping command usage and options" loading="lazy">
+          <figcaption>Figure 5. <code>ping /?</code> command output.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>2. Ping connected server</h3>
+        <p>Pinged the default gateway, <code>10.136.15.254</code>. Four packets were sent and received, with zero packet loss. Response times were 4 ms, 37 ms, 6 ms, and 5 ms.</p>
+        <div class="lab-metrics" aria-label="Ping statistics">
+          <div><strong>4 / 4</strong><span>Packets received</span></div>
+          <div><strong>0%</strong><span>Packet loss</span></div>
+          <div><strong>4–37 ms</strong><span>Response range</span></div>
+          <div><strong>13 ms</strong><span>Average response</span></div>
+          <div><strong>255</strong><span>Reply TTL</span></div>
+        </div>
+        <div class="lab-answer">
+          <h4>What does TTL mean?</h4>
+          <p>Time To Live limits the number of router hops an IP packet may traverse before being discarded. The observed reply TTL was 255.</p>
+        </div>
+        <figure class="lab-figure">
+          <img src="lab1-images/06-ping-gateway.png" alt="Successful ping replies from default gateway 10.136.15.254 with summary statistics" loading="lazy">
+          <figcaption>Figure 6. Ping of the default gateway.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>3. Verify the responding computer</h3>
+        <div class="lab-answer">
+          <h4>How can you be sure the response is coming from the correct computer?</h4>
+          <p>Compare the responding IP address with the intended destination. On the local network, the ARP table can show the associated MAC address; however, ping and ARP alone cannot authenticate the identity of the remote computer.</p>
+        </div>
+      </article>
+
+      <article class="lab-card">
+        <h3>4. <code>tracert www.kean.edu</code></h3>
+        <p>The trace reached webfarm.kean.edu (<code>10.100.1.33</code>) in six hops, with five intermediate nodes. Hop 2 (<code>10.0.6.26</code>) had the longest single response, 31 ms.</p>
+        <div class="lab-table-wrap">
+          <table class="lab-table">
+            <caption>Traceroute results for www.kean.edu</caption>
+            <thead><tr><th scope="col">Hop</th><th scope="col">IP address / hostname</th><th scope="col">Response times (ms)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">1</th><td>10.136.15.254</td><td>4, 4, 4</td></tr>
+              <tr><th scope="row">2</th><td>10.0.6.26</td><td>31, 2, 2</td></tr>
+              <tr><th scope="row">3</th><td>10.0.6.19</td><td>4, 1, 1</td></tr>
+              <tr><th scope="row">4</th><td>10.0.6.12</td><td>4, 3, 2</td></tr>
+              <tr><th scope="row">5</th><td>172.16.0.14</td><td>6, 2, 2</td></tr>
+              <tr><th scope="row">6</th><td>enlowhall.kean.edu (10.100.1.33)</td><td>7, 2, 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lab-answer">
+          <h4>How many actual intermediate hops?</h4>
+          <p>Five intermediate hops, followed by the destination at hop 6.</p>
+        </div>
+        <div class="lab-answer">
+          <h4>Which intermediate node takes the longest time?</h4>
+          <p>Hop 2, <code>10.0.6.26</code>, with one 31 ms response.</p>
+        </div>
+        <div class="lab-answer">
+          <h4>Do intermediate nodes change between five attempts?</h4>
+          <p>Cannot determine from the single supplied Kean traceroute. Changes may be caused by load balancing or routing changes.</p>
+        </div>
+        <p class="lab-topology"><strong>Observed topology:</strong> Computer &rarr; 10.136.15.254 &rarr; 10.0.6.26 &rarr; 10.0.6.19 &rarr; 10.0.6.12 &rarr; 172.16.0.14 &rarr; Kean server (10.100.1.33).</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/07-tracert-kean.png" alt="Traceroute output showing six hops from the computer to webfarm.kean.edu" loading="lazy">
+          <figcaption>Figure 7. First Kean traceroute.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>5. <code>tracert www.google.com</code></h3>
+        <p>The supplied screenshot for Google shows a successful <code>ping www.google.com</code> test, not a traceroute. No Google traceroute output was included in the provided material.</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/08-ping-google.png" alt="Ping output showing four successful replies from www.google.com at 142.251.156.119" loading="lazy">
+          <figcaption>Additional connectivity check. Ping of <code>www.google.com</code>; this is not <code>tracert</code> output.</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <section class="lab-section" id="arp" aria-labelledby="arp-title">
+      <div class="lab-section-heading">
+        <span class="lab-section-number">03</span>
+        <div>
+          <p class="lab-eyebrow">LAB 1.2 · ARP</p>
+          <h2 id="arp-title">Address Resolution Protocol (ARP)</h2>
+        </div>
+      </div>
+
+      <article class="lab-card">
+        <h3>1. <code>arp /?</code></h3>
+        <div class="lab-answer">
+          <h4>Which option displays current ARP entries?</h4>
+          <p><code>arp -a</code>.</p>
+        </div>
+        <figure class="lab-figure">
+          <img src="lab1-images/09-arp-help.png" alt="ARP help output describing the arp -a option for displaying current entries" loading="lazy">
+          <figcaption>Figure 8. ARP help options.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>2. <code>arp -a</code></h3>
+        <p>For interface <code>10.136.12.50</code>, the gateway <code>10.136.15.254</code> appeared as a dynamic entry with MAC address <code>64-6a-52-f4-2d-00</code>. Broadcast and multicast static entries also appeared.</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/10-arp-table.png" alt="ARP table for interface 10.136.12.50 showing the gateway as a dynamic entry and broadcast or multicast static entries" loading="lazy">
+          <figcaption>Figure 9. <code>arp -a</code> table.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>3. Delete ARP cache</h3>
+        <p>The screenshot shows <code>arp -d*</code> entered without a space before the wildcard, followed by ARP usage/help output. This does not demonstrate that the entries were deleted. The documented Windows syntax for deleting all entries is <code>arp -d *</code>, generally run from an elevated Command Prompt.</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/11-arp-delete-attempt.png" alt="Command Prompt showing arp -d* followed by ARP usage and help output" loading="lazy">
+          <figcaption>Figure 10. ARP deletion attempt and help output.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>4. Run Command Prompt as administrator</h3>
+        <p>An elevated Command Prompt is generally required to delete all ARP entries. The supplied deletion screenshot shows the command and help output, but does not independently confirm that the prompt was elevated.</p>
+      </article>
+
+      <article class="lab-card">
+        <h3>5. Repeat <code>arp -a</code></h3>
+        <p>The later ARP table still contains the dynamic gateway entry <code>10.136.15.254</code> &rarr; <code>64-6a-52-f4-2d-00</code>. The supplied evidence therefore does not establish that the ARP cache was empty.</p>
+        <figure class="lab-figure">
+          <img src="lab1-images/12-arp-table-after.png" alt="Later ARP table still showing the dynamic gateway mapping 10.136.15.254 to 64-6a-52-f4-2d-00" loading="lazy">
+          <figcaption>Figure 11. Later ARP table.</figcaption>
+        </figure>
+      </article>
+
+      <article class="lab-card">
+        <h3>6. Repeat ping</h3>
+        <p>The previously supplied gateway ping is shown in Figure 6. No separate screenshot was provided to confirm a new ping after the ARP deletion attempt.</p>
+      </article>
+
+      <article class="lab-card">
+        <h3>7. Repeat <code>arp -a</code></h3>
+        <div class="lab-answer">
+          <h4>Why would the MAC address reappear?</h4>
+          <p>Communicating with a local device can trigger ARP address resolution, repopulating a dynamic IP-to-MAC mapping in the ARP cache. The supplied screenshots do not establish that this sequence was completed after clearing the cache.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="lab-section" id="issues" aria-labelledby="issues-title">
+      <div class="lab-section-heading">
+        <span class="lab-section-number">04</span>
+        <div>
+          <p class="lab-eyebrow">REFLECTION</p>
+          <h2 id="issues-title">Problems/issues and resolution</h2>
+        </div>
+      </div>
+      <article class="lab-card">
+        <p>The ARP deletion attempt displayed help instead of confirmation, likely because the entered syntax lacked a space before the wildcard. A successful retry has not yet been documented. No evidence was provided for changing the campus IP configuration, the DNS ping, or the remaining traceroutes.</p>
+      </article>
+    </section>
+
+    <section class="lab-section" id="conclusion" aria-labelledby="conclusion-title">
+      <div class="lab-section-heading">
+        <span class="lab-section-number">05</span>
+        <div>
+          <p class="lab-eyebrow">SUMMARY</p>
+          <h2 id="conclusion-title">Conclusion</h2>
+        </div>
+      </div>
+      <article class="lab-card">
+        <p>The lab demonstrated how <code>ipconfig</code> displays TCP/IP configuration, <code>ping</code> tests connectivity, <code>tracert</code> reveals a route to a server, and <code>arp</code> displays local IPv4-to-MAC mappings. The recorded gateway ping completed with no packet loss, and the Kean traceroute reached its destination. Some required procedures remain to be documented.</p>
+      </article>
+    </section>
+
+    <footer class="lab-footer">
+      <a class="lab-home-link" href="index.html">&larr; Back to course website</a>
+    </footer>
+  </main>
+</body>
+</html>
