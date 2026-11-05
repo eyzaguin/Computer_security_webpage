@@ -311,6 +311,15 @@ body {
   box-shadow: var(--shadow-pink);
 }
 
+.video-showcase video {
+  display: block;
+  width: 100%;
+  max-height: 75vh;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #000;
+}
+
 /* Headings */
 h2.section-heading {
   font-size: 1.45rem;
